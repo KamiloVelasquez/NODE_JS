@@ -1,0 +1,94 @@
+import React, { createContext, useState, useContext } from 'react';
+
+const translations = {
+  es: {
+    app_title: 'Archivista Cinemático',
+    university_admin: 'Administración Universitaria',
+    home: 'Inicio',
+    genres: 'Géneros',
+    directors: 'Directores',
+    studios: 'Estudios',
+    media: 'Multimedia',
+    settings: 'Ajustes',
+    sign_out: 'Cerrar Sesión',
+    search_placeholder: 'Buscar archivo...',
+    add_title: 'Añadir Nuevo Título',
+    media_management: 'Gestión Multimedia',
+    curate_library: 'Administra la biblioteca cinematográfica de la universidad',
+    serial: 'Serial',
+    poster: 'Póster',
+    title_details: 'Título y Detalles',
+    genre: 'Género',
+    director: 'Director',
+    status: 'Estado',
+    actions: 'Acciones',
+    showing: 'Mostrando',
+    of: 'de',
+    records: 'registros',
+    previous: 'Anterior',
+    next: 'Siguiente',
+    film: 'PELÍCULA',
+    series: 'SERIE',
+    documentary: 'Documental',
+    science: 'Ciencia',
+    active: 'ACTIVO',
+    pending: 'PENDIENTE',
+    lang_btn: 'EN'
+  },
+  en: {
+    app_title: 'Cinematic Archivist',
+    university_admin: 'University Admin',
+    home: 'Home',
+    genres: 'Genres',
+    directors: 'Directors',
+    studios: 'Studios',
+    media: 'Media',
+    settings: 'Settings',
+    sign_out: 'Sign Out',
+    search_placeholder: 'Search archive...',
+    add_title: 'Add New Title',
+    media_management: 'Media Management',
+    curate_library: "Curate the university's cinematic library",
+    serial: 'Serial',
+    poster: 'Poster',
+    title_details: 'Title & Details',
+    genre: 'Genre',
+    director: 'Director',
+    status: 'Status',
+    actions: 'Actions',
+    showing: 'Showing',
+    of: 'of',
+    records: 'records',
+    previous: 'Previous',
+    next: 'Next',
+    film: 'FILM',
+    series: 'SERIES',
+    documentary: 'Documentary',
+    science: 'Science',
+    active: 'ACTIVE',
+    pending: 'PENDING',
+    lang_btn: 'ES'
+  }
+};
+
+const LanguageContext = createContext();
+
+export const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState('es'); // Spanish default
+
+  const toggleLanguage = () => {
+    setLanguage(prev => (prev === 'es' ? 'en' : 'es'));
+  };
+
+  const t = (key) => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => useContext(LanguageContext);

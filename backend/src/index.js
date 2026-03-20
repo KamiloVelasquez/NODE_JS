@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
 
@@ -17,6 +18,12 @@ app.use('/api/productoras', require('./routes/productora')); // Ruta para el rec
 app.use('/api/tipos', require('./routes/tipo')); // Ruta para el recurso de Tipo, que se encarga de manejar las solicitudes relacionadas con los tipos de multimedia, como obtener, crear o editar los tipos
 app.use('/api/medias', require('./routes/media')); // Ruta para el recurso de Media, que se encarga de manejar las solicitudes relacionadas con las producciones (películas y series), como obtener, crear, editar o eliminar las medias
 
+
+// Sirviendo el frontend compilado en producción
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+});
 
 getConnection();
 
