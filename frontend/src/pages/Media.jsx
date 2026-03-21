@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieTable from '../components/MovieTable';
 import Pagination from '../components/Pagination';
 import { useLanguage } from '../contexts/LanguageContext';
+import { mediaAPI } from '../services/api';
 
 export default function Media() {
   const { t } = useLanguage();
+  const [medias, setMedias] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMedias = async () => {
+      try {
+        const response = await mediaAPI.getAll();
+        setMedias(response.data);
+      } catch (err) {
+        setError('Error al cargar las medias');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedias();
+  }, []);
+
+  if (loading) return <div className="text-center text-light">Cargando...</div>;
+  if (error) return <div className="text-center text-danger">{error}</div>;
 
   return (
     <>
@@ -18,7 +41,7 @@ export default function Media() {
           {t('add_title')}
         </button>
       </section>
-      <MovieTable />
+      <MovieTable medias={medias} />
       <Pagination />
     </>
   );

@@ -1,9 +1,13 @@
 const Director = require('../models/Director');
 
-const getDirectorService = async () => {
-    const director = await Director.findOne();
+const getDirectorsService = async () => {
+    return await Director.find();
+};
+
+const getDirectorByIdService = async (id) => {
+    const director = await Director.findById(id);
     if (!director) {
-        const error = new Error('No se encontró un director registrado.');
+        const error = new Error('Director no encontrado.');
         error.status = 404;
         throw error;
     }
@@ -11,9 +15,9 @@ const getDirectorService = async () => {
 };
 
 const createDirectorService = async ({ nombres, estado }) => {
-    const directorExistente = await Director.findOne();
+    const directorExistente = await Director.findOne({ nombres });
     if (directorExistente) {
-        const error = new Error('Ya existe un director registrado. Use la función de actualización.');
+        const error = new Error(`El director "${nombres}" ya existe.`);
         error.status = 400;
         throw error;
     }
@@ -23,10 +27,10 @@ const createDirectorService = async ({ nombres, estado }) => {
     return director;
 };
 
-const updateDirectorService = async ({ nombres, estado }) => {
-    const director = await Director.findOne();
+const updateDirectorService = async (id, { nombres, estado }) => {
+    const director = await Director.findById(id);
     if (!director) {
-        const error = new Error('No se encontró un director para actualizar.');
+        const error = new Error('Director no encontrado.');
         error.status = 404;
         throw error;
     }
@@ -39,8 +43,20 @@ const updateDirectorService = async ({ nombres, estado }) => {
     return director;
 };
 
+const deleteDirectorService = async (id) => {
+    const director = await Director.findByIdAndDelete(id);
+    if (!director) {
+        const error = new Error('Director no encontrado.');
+        error.status = 404;
+        throw error;
+    }
+    return director;
+};
+
 module.exports = {
-    getDirectorService,
+    getDirectorsService,
+    getDirectorByIdService,
     createDirectorService,
-    updateDirectorService
+    updateDirectorService,
+    deleteDirectorService
 };

@@ -1,9 +1,21 @@
 const { request, response } = require('express');
-const { getDirectorService, createDirectorService, updateDirectorService } = require('../services/directorService');
+const { validationResult } = require('express-validator'); // Importamos validationResult para manejar errores de validación
+const { getDirectorsService, getDirectorByIdService, createDirectorService, updateDirectorService, deleteDirectorService } = require('../services/directorService');
 
-const getDirector = async (req = request, res = response) => {
+const getDirectors = async (req = request, res = response) => {
     try {
-        const director = await getDirectorService();
+        const directors = await getDirectorsService();
+        res.status(200).json(directors);
+    } catch (error) {
+        console.error('❌ Error al obtener directores:', error);
+        res.status(500).json({ msg: 'Ocurrió un error al listar los directores' });
+    }
+}
+
+const getDirectorById = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const director = await getDirectorByIdService(id);
         res.status(200).json(director);
     } catch (error) {
         if (error.status === 404) {
@@ -16,6 +28,12 @@ const getDirector = async (req = request, res = response) => {
 
 const createDirector = async (req = request, res = response) => {
     try {
+        // Verificar errores de validación
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const director = await createDirectorService(req.body);
         res.status(201).json(director);
     } catch (error) {
@@ -29,7 +47,14 @@ const createDirector = async (req = request, res = response) => {
 
 const updateDirector = async (req = request, res = response) => {
     try {
-        const director = await updateDirectorService(req.body);
+        // Verificar errores de validación
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { id } = req.params;
+        const director = await updateDirectorService(id, req.body);
         res.status(200).json(director);
     } catch (error) {
         if (error.status === 404) {
@@ -40,8 +65,24 @@ const updateDirector = async (req = request, res = response) => {
     }
 }
 
+const deleteDirector = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const director = await deleteDirectorService(id);
+        res.status(200).json({ msg: 'Director eliminado exitosamente' });
+    } catch (error) {
+        if (error.status === 404) {
+            return res.status(404).json({ msg: error.message });
+        }
+        console.error('❌ Error al eliminar director:', error);
+        res.status(500).json({ msg: 'Ocurrió un error al eliminar el director' });
+    }
+}
+
 module.exports = {
-    getDirector,
+    getDirectors,
+    getDirectorById,
     createDirector,
-    updateDirector
+    updateDirector,
+    deleteDirector
 }
