@@ -12,12 +12,12 @@ app.use(cors());
 app.use(express.json());
 
 /* --- rutas --- */
-app.use('/api/auth', require('./routes/auth')); // Rutas de autenticación
-app.use('/api/generos', require('./routes/genero')); // Ruta para el recurso de Género, que se encarga de manejar las solicitudes relacionadas con los géneros, como obtener la lista de géneros o crear un nuevo género
-app.use('/api/directores', require('./routes/director')); // Ruta para el recurso de Director, que se encarga de manejar las solicitudes relacionadas con el director principal, como obtener, crear o editar el director
-app.use('/api/productoras', require('./routes/productora')); // Ruta para el recurso de Productora, que se encarga de manejar las solicitudes relacionadas con la productora principal, como obtener, crear o editar la productora
-app.use('/api/tipos', require('./routes/tipo')); // Ruta para el recurso de Tipo, que se encarga de manejar las solicitudes relacionadas con los tipos de multimedia, como obtener, crear o editar los tipos
-app.use('/api/medias', require('./routes/media')); // Ruta para el recurso de Media, que se encarga de manejar las solicitudes relacionadas con las producciones (películas y series), como obtener, crear, editar o eliminar las medias
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/genres', require('./routes/genero'));
+app.use('/api/directors', require('./routes/director'));
+app.use('/api/productions', require('./routes/productora'));
+app.use('/api/types', require('./routes/tipo'));
+app.use('/api/media', require('./routes/media'));
 
 
 // Sirviendo el frontend compilado en producción

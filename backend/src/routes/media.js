@@ -1,12 +1,16 @@
-const { Router } = require('express'); // Importamos Router de Express para crear las rutas
-const { getMedias, createMedia, updateMedia, deleteMedia } = require('../controllers/mediaController'); // Importamos las funciones del controlador de medias
+const { Router } = require('express');
+const { 
+  listMedias, createMedia, updateMedia, deleteMedia 
+} = require('../controllers/mediaController');
 
-const router = Router(); // Creamos una instancia de Router
+const router = Router();
 
-// Definimos las rutas para las medias
-router.get('/', getMedias); // Ruta GET para obtener la lista de medias
-router.post('/', createMedia); // Ruta POST para crear una nueva media
-router.put('/:id', updateMedia); // Ruta PUT para actualizar una media existente por ID
-router.delete('/:id', deleteMedia); // Ruta DELETE para eliminar una media existente por ID
+/**
+ * Routes for Media
+ */
+router.get('/', listMedias);
+router.post('/', createMedia);
+router.put('/:id', updateMedia);
+router.delete('/:id', deleteMedia);
 
-module.exports = router; // Exportamos el router para que pueda ser utilizado en index.js
+module.exports = router;

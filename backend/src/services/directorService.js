@@ -1,52 +1,68 @@
 const Director = require('../models/Director');
 
-const getDirectorsService = async () => {
+/**
+ * findAllDirectors
+ * Fetches all directors from DB.
+ */
+const findAllDirectors = async () => {
     return await Director.find();
 };
 
-const getDirectorByIdService = async (id) => {
+/**
+ * findDirectorById
+ * Fetches a single director by ID.
+ */
+const findDirectorById = async (id) => {
     const director = await Director.findById(id);
     if (!director) {
-        const error = new Error('Director no encontrado.');
+        const error = new Error('Director not found.');
         error.status = 404;
         throw error;
     }
     return director;
 };
 
-const createDirectorService = async ({ nombres, estado }) => {
-    const directorExistente = await Director.findOne({ nombres });
-    if (directorExistente) {
-        const error = new Error(`El director "${nombres}" ya existe.`);
+/**
+ * createNewDirector
+ * Validates and saves a new director.
+ */
+const createNewDirector = async (directorData) => {
+    const { name, isActive } = directorData;
+    const existingDirector = await Director.findOne({ name });
+    
+    if (existingDirector) {
+        const error = new Error(`Director with name "${name}" already exists.`);
         error.status = 400;
         throw error;
     }
 
-    const director = new Director({ nombres, estado });
+    const director = new Director({ name, isActive });
     await director.save();
     return director;
 };
 
-const updateDirectorService = async (id, { nombres, estado }) => {
-    const director = await Director.findById(id);
+/**
+ * updateDirectorById
+ * Updates director fields by ID.
+ */
+const updateDirectorById = async (id, directorData) => {
+    const director = await Director.findByIdAndUpdate(id, directorData, { new: true });
     if (!director) {
-        const error = new Error('Director no encontrado.');
+        const error = new Error('Director not found.');
         error.status = 404;
         throw error;
     }
-
-    director.nombres = nombres || director.nombres;
-    director.estado = estado || director.estado;
-    director.fechaActualizacion = Date.now();
-
-    await director.save();
     return director;
 };
 
-const deleteDirectorService = async (id) => {
+/**
+ * deleteDirectorById
+ * Removes a director by ID.
+ */
+const deleteDirectorById = async (id) => {
     const director = await Director.findByIdAndDelete(id);
     if (!director) {
-        const error = new Error('Director no encontrado.');
+        const error = new Error('Director not found.');
         error.status = 404;
         throw error;
     }
@@ -54,9 +70,9 @@ const deleteDirectorService = async (id) => {
 };
 
 module.exports = {
-    getDirectorsService,
-    getDirectorByIdService,
-    createDirectorService,
-    updateDirectorService,
-    deleteDirectorService
+    findAllDirectors,
+    findDirectorById,
+    createNewDirector,
+    updateDirectorById,
+    deleteDirectorById
 };

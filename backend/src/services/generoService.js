@@ -1,25 +1,34 @@
 const Genero = require('../models/Genero');
 
-// Obtener todos los géneros
-const getGenerosService = async () => {
+/**
+ * findAllGeneros
+ * Service to fetch all genres from the database.
+ */
+const findAllGeneros = async () => {
     return await Genero.find();
 };
 
-// Crear un nuevo género
-const createGeneroService = async ({ nombre, descripcion }) => {
-    const generoDB = await Genero.findOne({ nombre });
-    if (generoDB) {
-        const error = new Error(`El género "${nombre}" ya existe.`);
+/**
+ * createNewGenero
+ * Service to validate and save a new genre.
+ * @param {Object} genreData - Includes name and description.
+ */
+const createNewGenero = async (genreData) => {
+    const { name, description } = genreData;
+    
+    const existingGenre = await Genero.findOne({ name });
+    if (existingGenre) {
+        const error = new Error(`The genre "${name}" already exists.`);
         error.status = 400;
         throw error;
     }
 
-    const genero = new Genero({ nombre, descripcion });
-    await genero.save();
-    return genero;
+    const genre = new Genero({ name, description });
+    await genre.save();
+    return genre;
 };
 
 module.exports = {
-    getGenerosService,
-    createGeneroService
+    findAllGeneros,
+    createNewGenero
 };

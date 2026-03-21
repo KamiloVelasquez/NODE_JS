@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { authAPI } from '../services/api';
-import '../styles/Login.css';
+import { useLanguage } from '../contexts/language-context';
+import '../styles/login.css';
 
+/**
+ * Login Page
+ * Handles user authentication.
+ */
 const Login = () => {
+    const { t } = useLanguage();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -28,15 +34,14 @@ const Login = () => {
 
         try {
             const response = await authAPI.login(formData);
+            const data = response.data || response;
             
-            // Guardar token en localStorage
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
             
-            // Redirigir al home
             navigate('/media');
         } catch (err) {
-            setError(err.response?.data?.msg || 'Error al iniciar sesión');
+            setError(err.response?.data?.msg || t('login_error') || 'Error signing in');
             console.error('Login error:', err);
         } finally {
             setLoading(false);
@@ -46,39 +51,39 @@ const Login = () => {
     return (
         <div className="login-container">
             <div className="login-box">
-                <h1 className="login-title">IUDGITAL</h1>
-                <h2 className="login-subtitle">Iniciar Sesión</h2>
+                <h1 className="login-title">CINEMATIC</h1>
+                <h2 className="login-subtitle">{t('sign_in')}</h2>
 
                 {error && (
-                    <div className="alert alert-danger" role="alert">
+                    <div className="alert alert-danger py-2" style={{ fontSize: '0.8rem' }} role="alert">
                         {error}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="email" className="form-label">
+                        <label htmlFor="email" className="form-label text-secondary" style={{ fontSize: '0.8rem' }}>
                             Email
                         </label>
                         <input
                             type="email"
-                            className="form-control"
+                            className="form-control bg-dark text-light border-secondary border-opacity-25 shadow-none"
                             id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            placeholder="correo@ejemplo.com"
+                            placeholder="user@example.com"
                         />
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="password" className="form-label">
-                            Contraseña
+                        <label htmlFor="password" className="form-label text-secondary" style={{ fontSize: '0.8rem' }}>
+                            {t('password')}
                         </label>
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control bg-dark text-light border-secondary border-opacity-25 shadow-none"
                             id="password"
                             name="password"
                             value={formData.password}
@@ -90,19 +95,19 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="btn btn-primary w-100"
+                        className="btn btn-success w-100 fw-bold mt-2 shadow-none"
                         disabled={loading}
                     >
-                        {loading ? 'Cargando...' : 'Iniciar Sesión'}
+                        {loading ? '...' : t('sign_in_btn')}
                     </button>
                 </form>
 
-                <div className="text-center mt-3">
-                    <p>
-                        ¿No tienes cuenta?{' '}
-                        <a href="/register" className="btn-link">
-                            Regístrate aquí
-                        </a>
+                <div className="text-center mt-4">
+                    <p className="text-secondary mb-0" style={{ fontSize: '0.85rem' }}>
+                        {t('no_account')}{' '}
+                        <Link to="/register" className="text-success text-decoration-none fw-bold">
+                            {t('register_here')}
+                        </Link>
                     </p>
                 </div>
             </div>

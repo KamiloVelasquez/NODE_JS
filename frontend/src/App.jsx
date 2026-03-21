@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import ProtectedRoute from './components/ProtectedRoute';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Genres from './pages/Genres';
-import Directors from './pages/Directors';
-import Studios from './pages/Studios';
-import Media from './pages/Media';
-import Settings from './pages/Settings';
+import Sidebar from './components/side-bar';
+import Header from './components/header-nav';
+import ProtectedRoute from './components/protected-route';
+import Login from './pages/login';
+import Register from './pages/register';
+import Home from './pages/home';
+import Genres from './pages/genres';
+import Directors from './pages/directors';
+import Studios from './pages/studios';
+import Media from './pages/media';
+import MediaTypes from './pages/media-types';
+import Settings from './pages/settings';
 
 export default function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/genres" element={<Genres />} />
             <Route path="/directors" element={<Directors />} />
             <Route path="/studios" element={<Studios />} />
+            <Route path="/types" element={<MediaTypes />} />
             <Route path="/media" element={<Media />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>

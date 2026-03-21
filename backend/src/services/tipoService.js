@@ -1,34 +1,47 @@
 const Tipo = require('../models/Tipo');
 
-const getTiposService = async () => {
+/**
+ * findAllTypes
+ * Fetches all media types.
+ */
+const findAllTypes = async () => {
     return await Tipo.find();
 };
 
-const createTipoService = async ({ nombre, descripcion }) => {
-    const tipoDB = await Tipo.findOne({ nombre });
-    if (tipoDB) {
-        const error = new Error(`El tipo "${nombre}" ya existe.`);
+/**
+ * createNewType
+ * Saves a new media type.
+ */
+const createNewType = async (typeData) => {
+    const { name, description, isActive } = typeData;
+    const existingType = await Tipo.findOne({ name });
+    if (existingType) {
+        const error = new Error(`Type "${name}" already exists.`);
         error.status = 400;
         throw error;
     }
 
-    const tipo = new Tipo({ nombre, descripcion });
-    await tipo.save();
-    return tipo;
+    const type = new Tipo({ name, description, isActive });
+    await type.save();
+    return type;
 };
 
-const updateTipoService = async (id, { nombre, descripcion }) => {
-    const tipo = await Tipo.findByIdAndUpdate(id, { nombre, descripcion }, { new: true });
-    if (!tipo) {
-        const error = new Error('Tipo no encontrado');
+/**
+ * updateTypeById
+ * Updates type fields by ID.
+ */
+const updateTypeById = async (id, typeData) => {
+    const type = await Tipo.findByIdAndUpdate(id, typeData, { new: true });
+    if (!type) {
+        const error = new Error('Media type not found.');
         error.status = 404;
         throw error;
     }
-    return tipo;
+    return type;
 };
 
 module.exports = {
-    getTiposService,
-    createTipoService,
-    updateTipoService
+    findAllTypes,
+    createNewType,
+    updateTypeById
 };

@@ -1,11 +1,15 @@
-const { Router } = require('express'); // Importamos Router de Express para crear las rutas
-const { getProductoras, createProductora, updateProductora } = require('../controllers/productoraController'); // Importamos las funciones del controlador de productoras
+const { Router } = require('express');
+const { 
+  listProductionCompanies, createProductionCompany, updateProductionCompany 
+} = require('../controllers/productoraController');
 
-const router = Router(); // Creamos una instancia de Router
+const router = Router();
 
-// Definimos las rutas para las productoras
-router.get('/', getProductoras); // Ruta GET para obtener la lista de productoras
-router.post('/', createProductora); // Ruta POST para crear una nueva productora
-router.put('/:id', updateProductora); // Ruta PUT para actualizar una productora existente por ID
+/**
+ * Routes for Productora (Production Companies)
+ */
+router.get('/', listProductionCompanies);
+router.post('/', createProductionCompany);
+router.put('/:id', updateProductionCompany);
 
-module.exports = router; // Exportamos el router para que pueda ser utilizado en index.js
+module.exports = router;

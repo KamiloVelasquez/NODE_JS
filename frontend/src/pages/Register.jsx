@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { authAPI } from '../services/api';
-import '../styles/Login.css';
+import { useLanguage } from '../contexts/language-context';
+import '../styles/login.css';
 
+/**
+ * Register Page
+ * Handles new user account creation.
+ */
 const Register = () => {
+    const { t } = useLanguage();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -26,14 +32,13 @@ const Register = () => {
         e.preventDefault();
         setError('');
 
-        // Validaciones
         if (formData.password.length < 6) {
-            setError('La contraseña debe tener al menos 6 caracteres');
+            setError(t('pwd_min_length') || 'Password must be at least 6 characters');
             return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-            setError('Las contraseñas no coinciden');
+            setError(t('pwd_mismatch') || 'Passwords do not match');
             return;
         }
 
@@ -44,11 +49,9 @@ const Register = () => {
                 email: formData.email,
                 password: formData.password
             });
-
-            // Redirigir al login
             navigate('/login');
         } catch (err) {
-            setError(err.response?.data?.msg || 'Error al registrarse');
+            setError(err.response?.data?.msg || t('register_error') || 'Error creating account');
             console.error('Register error:', err);
         } finally {
             setLoading(false);
@@ -58,39 +61,39 @@ const Register = () => {
     return (
         <div className="login-container">
             <div className="login-box">
-                <h1 className="login-title">IUDGITAL</h1>
-                <h2 className="login-subtitle">Registrarse</h2>
+                <h1 className="login-title">CINEMATIC</h1>
+                <h2 className="login-subtitle">{t('register_title')}</h2>
 
                 {error && (
-                    <div className="alert alert-danger" role="alert">
+                    <div className="alert alert-danger py-2" style={{ fontSize: '0.8rem' }} role="alert">
                         {error}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="email" className="form-label">
+                        <label htmlFor="email" className="form-label text-secondary" style={{ fontSize: '0.8rem' }}>
                             Email
                         </label>
                         <input
                             type="email"
-                            className="form-control"
+                            className="form-control bg-dark text-light border-secondary border-opacity-25 shadow-none"
                             id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            placeholder="correo@ejemplo.com"
+                            placeholder="user@example.com"
                         />
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="password" className="form-label">
-                            Contraseña
+                        <label htmlFor="password" className="form-label text-secondary" style={{ fontSize: '0.8rem' }}>
+                            {t('password')}
                         </label>
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control bg-dark text-light border-secondary border-opacity-25 shadow-none"
                             id="password"
                             name="password"
                             value={formData.password}
@@ -101,12 +104,12 @@ const Register = () => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="confirmPassword" className="form-label">
-                            Confirmar Contraseña
+                        <label htmlFor="confirmPassword" className="form-label text-secondary" style={{ fontSize: '0.8rem' }}>
+                            {t('confirm_password')}
                         </label>
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control bg-dark text-light border-secondary border-opacity-25 shadow-none"
                             id="confirmPassword"
                             name="confirmPassword"
                             value={formData.confirmPassword}
@@ -118,19 +121,19 @@ const Register = () => {
 
                     <button
                         type="submit"
-                        className="btn btn-primary w-100"
+                        className="btn btn-success w-100 fw-bold mt-2 shadow-none"
                         disabled={loading}
                     >
-                        {loading ? 'Cargando...' : 'Registrarse'}
+                        {loading ? '...' : t('register_btn')}
                     </button>
                 </form>
 
-                <div className="text-center mt-3">
-                    <p>
-                        ¿Ya tienes cuenta?{' '}
-                        <a href="/login" className="btn-link">
-                            Inicia sesión aquí
-                        </a>
+                <div className="text-center mt-4">
+                    <p className="text-secondary mb-0" style={{ fontSize: '0.85rem' }}>
+                        {t('already_have_account')}{' '}
+                        <Link to="/login" className="text-success text-decoration-none fw-bold">
+                            {t('login_here')}
+                        </Link>
                     </p>
                 </div>
             </div>

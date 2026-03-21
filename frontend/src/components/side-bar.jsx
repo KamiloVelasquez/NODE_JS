@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../contexts/language-context';
 
 export default function Sidebar() {
   const { t } = useLanguage();
@@ -37,6 +37,12 @@ export default function Sidebar() {
           <NavLink to="/studios" className={getNavLinkClass}>
             <span className="material-symbols-outlined fs-5">business</span>
             <span>{t('studios')}</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/types" className={getNavLinkClass}>
+            <span className="material-symbols-outlined fs-5">category</span>
+            <span>{t('types') || 'Types'}</span>
           </NavLink>
         </li>
         <li>

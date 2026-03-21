@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ModalBase from '../components/modal-base';
 import EntityForm from '../components/entity-form';
 import { useLanguage } from '../contexts/language-context';
-import { genresAPI } from '../services/api';
+import { typesAPI } from '../services/api';
 
 /**
- * Genres Page
+ * MediaTypes Page
  */
-export default function Genres() {
+export default function MediaTypes() {
   const { t } = useLanguage();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ export default function Genres() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const resp = await genresAPI.getAll();
+      const resp = await typesAPI.getAll();
       setData(resp.data || resp || []);
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
@@ -32,17 +32,17 @@ export default function Genres() {
   const handleSubmit = async (formData) => {
     setFormLoading(true);
     try {
-      if (selectedEntity) await genresAPI.update(selectedEntity._id, formData);
-      else await genresAPI.create(formData);
+      if (selectedEntity) await typesAPI.update(selectedEntity._id, formData);
+      else await typesAPI.create(formData);
       setShowModal(false);
       fetchData();
-    } catch (err) { alert('Error saving genre'); }
+    } catch (err) { alert('Error saving media type'); }
     finally { setFormLoading(false); }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Delete genre?')) {
-      try { await genresAPI.delete(id); fetchData(); }
+    if (window.confirm('Delete media type?')) {
+      try { await typesAPI.delete(id); fetchData(); }
       catch (err) { alert('Error deleting'); }
     }
   };
@@ -51,12 +51,12 @@ export default function Genres() {
     <div className="container-fluid">
       <header className="d-flex justify-content-between align-items-center mb-5">
         <div>
-          <h2 className="text-light fw-bold mb-0">{t('genres')}</h2>
-          <p className="text-secondary small">Classify your media library.</p>
+          <h2 className="text-light fw-bold mb-0">Tipos de Multimedia</h2>
+          <p className="text-secondary small">Define formats (Movie, Series, etc.).</p>
         </div>
         <button onClick={handleOpenAdd} className="btn btn-success d-flex align-items-center gap-2 px-4 shadow-sm">
-          <span className="material-symbols-outlined">add_box</span>
-          Add Genre
+          <span className="material-symbols-outlined">category</span>
+          Add Type
         </button>
       </header>
 
@@ -82,7 +82,7 @@ export default function Genres() {
         </div>
       )}
 
-      <ModalBase show={showModal} onClose={() => setShowModal(false)} title={selectedEntity ? 'Edit Genre' : 'Add Genre'}>
+      <ModalBase show={showModal} onClose={() => setShowModal(false)} title={selectedEntity ? 'Edit Type' : 'Add Type'}>
         <EntityForm initialData={selectedEntity} onSubmit={handleSubmit} loading={formLoading} />
       </ModalBase>
     </div>

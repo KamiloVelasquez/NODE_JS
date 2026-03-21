@@ -1,34 +1,47 @@
 const Productora = require('../models/Productora');
 
-const getProductorasService = async () => {
+/**
+ * findAllProductionCompanies
+ * Fetches all production companies from DB.
+ */
+const findAllProductionCompanies = async () => {
     return await Productora.find();
 };
 
-const createProductoraService = async ({ nombre, estado, slogan, descripcion }) => {
-    const productoraDB = await Productora.findOne({ nombre });
-    if (productoraDB) {
-        const error = new Error(`La productora "${nombre}" ya existe.`);
+/**
+ * createNewProductionCompany
+ * Validates and saves a new company.
+ */
+const createNewProductionCompany = async (companyData) => {
+    const { name, slogan, description, isActive } = companyData;
+    const existingCompany = await Productora.findOne({ name });
+    if (existingCompany) {
+        const error = new Error(`Production company "${name}" already exists.`);
         error.status = 400;
         throw error;
     }
 
-    const productora = new Productora({ nombre, estado, slogan, descripcion });
-    await productora.save();
-    return productora;
+    const company = new Productora({ name, slogan, description, isActive });
+    await company.save();
+    return company;
 };
 
-const updateProductoraService = async (id, { nombre, estado, slogan, descripcion }) => {
-    const productora = await Productora.findByIdAndUpdate(id, { nombre, estado, slogan, descripcion }, { new: true });
-    if (!productora) {
-        const error = new Error('Productora no encontrada');
+/**
+ * updateProductionCompanyById
+ * Updates company fields by ID.
+ */
+const updateProductionCompanyById = async (id, companyData) => {
+    const company = await Productora.findByIdAndUpdate(id, companyData, { new: true });
+    if (!company) {
+        const error = new Error('Production company not found.');
         error.status = 404;
         throw error;
     }
-    return productora;
+    return company;
 };
 
 module.exports = {
-    getProductorasService,
-    createProductoraService,
-    updateProductoraService
+    findAllProductionCompanies,
+    createNewProductionCompany,
+    updateProductionCompanyById
 };

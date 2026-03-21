@@ -4,145 +4,112 @@ const Director = require('../models/Director');
 const Productora = require('../models/Productora');
 const Tipo = require('../models/Tipo');
 
-const getMediasService = async () => {
-    return await Media.find()
-        .populate('genero', 'nombre')
-        .populate('director', 'nombres')
-        .populate('productora', 'nombre')
-        .populate('tipo', 'nombre');
+/**
+ * findAllMedias
+ * Fetches all media records with populated relations.
+ */
+const findAllMedias = async () => {
+  return await Media.find()
+    .populate('genre', 'name')
+    .populate('director', 'name')
+    .populate('productionCompany', 'name')
+    .populate('type', 'name');
 };
 
-const createMediaService = async (data) => {
-    const { serial, titulo, sinopsis, url, imagenPortada, anoEstreno, genero, director, productora, tipo } = data;
+/**
+ * createNewMedia
+ * Validates references and saves a new media record.
+ */
+const createNewMedia = async (mediaData) => {
+  const { 
+    serialNumber, title, synopsis, url, posterImage, 
+    releaseYear, genre, director, productionCompany, type 
+  } = mediaData;
 
-    // Validar serial único
-    const mediaSerial = await Media.findOne({ serial });
-    if (mediaSerial) {
-        const error = new Error(`El serial "${serial}" ya existe.`);
-        error.status = 400;
-        throw error;
-    }
+  // Validate unique fields
+  const existingSerial = await Media.findOne({ serialNumber });
+  if (existingSerial) {
+    const error = new Error(`Serial number "${serialNumber}" already exists.`);
+    error.status = 400;
+    throw error;
+  }
 
-    // Validar URL única
-    const mediaUrl = await Media.findOne({ url });
-    if (mediaUrl) {
-        const error = new Error(`La URL "${url}" ya existe.`);
-        error.status = 400;
-        throw error;
-    }
+  const existingUrl = await Media.findOne({ url });
+  if (existingUrl) {
+    const error = new Error(`URL "${url}" already exists.`);
+    error.status = 400;
+    throw error;
+  }
 
-    // Validar referencias
-    const generoDB = await Genero.findById(genero);
-    if (!generoDB || generoDB.estado !== 'Activo') {
-        const error = new Error('El género seleccionado no existe o no está activo.');
-        error.status = 400;
-        throw error;
-    }
+  // Validate references existence and activity
+  const genreDB = await Genero.findById(genre);
+  if (!genreDB || !genreDB.isActive) {
+    const error = new Error('Selected genre is invalid or inactive.');
+    error.status = 400;
+    throw error;
+  }
 
-    const directorDB = await Director.findById(director);
-    if (!directorDB || directorDB.estado !== 'Activo') {
-        const error = new Error('El director seleccionado no existe o no está activo.');
-        error.status = 400;
-        throw error;
-    }
+  const directorDB = await Director.findById(director);
+  if (!directorDB || !directorDB.isActive) {
+    const error = new Error('Selected director is invalid or inactive.');
+    error.status = 400;
+    throw error;
+  }
 
-    const productoraDB = await Productora.findById(productora);
-    if (!productoraDB || productoraDB.estado !== 'Activo') {
-        const error = new Error('La productora seleccionada no existe o no está activa.');
-        error.status = 400;
-        throw error;
-    }
+  const companyDB = await Productora.findById(productionCompany);
+  if (!companyDB || !companyDB.isActive) {
+    const error = new Error('Selected production company is invalid or inactive.');
+    error.status = 400;
+    throw error;
+  }
 
-    const tipoDB = await Tipo.findById(tipo);
-    if (!tipoDB) {
-        const error = new Error('El tipo seleccionado no existe.');
-        error.status = 400;
-        throw error;
-    }
+  const typeDB = await Tipo.findById(type);
+  if (!typeDB || !typeDB.isActive) {
+    const error = new Error('Selected media type is invalid or inactive.');
+    error.status = 400;
+    throw error;
+  }
 
-    const media = new Media({ serial, titulo, sinopsis, url, imagenPortada, anoEstreno, genero, director, productora, tipo });
-    await media.save();
-    return media;
+  const media = new Media({ 
+    serialNumber, title, synopsis, url, posterImage, 
+    releaseYear, genre, director, productionCompany, type 
+  });
+  
+  await media.save();
+  return media;
 };
 
-const updateMediaService = async (id, data) => {
-    const { serial, titulo, sinopsis, url, imagenPortada, anoEstreno, genero, director, productora, tipo } = data;
-
-    if (serial) {
-        const mediaSerial = await Media.findOne({ serial, _id: { $ne: id } });
-        if (mediaSerial) {
-            const error = new Error(`El serial "${serial}" ya existe.`);
-            error.status = 400;
-            throw error;
-        }
-    }
-    if (url) {
-        const mediaUrl = await Media.findOne({ url, _id: { $ne: id } });
-        if (mediaUrl) {
-            const error = new Error(`La URL "${url}" ya existe.`);
-            error.status = 400;
-            throw error;
-        }
-    }
-
-    if (genero) {
-        const generoDB = await Genero.findById(genero);
-        if (!generoDB || generoDB.estado !== 'Activo') {
-            const error = new Error('El género seleccionado no existe o no está activo.');
-            error.status = 400;
-            throw error;
-        }
-    }
-
-    if (director) {
-        const directorDB = await Director.findById(director);
-        if (!directorDB || directorDB.estado !== 'Activo') {
-            const error = new Error('El director seleccionado no existe o no está activo.');
-            error.status = 400;
-            throw error;
-        }
-    }
-
-    if (productora) {
-        const productoraDB = await Productora.findById(productora);
-        if (!productoraDB || productoraDB.estado !== 'Activo') {
-            const error = new Error('La productora seleccionada no existe o no está activa.');
-            error.status = 400;
-            throw error;
-        }
-    }
-
-    if (tipo) {
-        const tipoDB = await Tipo.findById(tipo);
-        if (!tipoDB) {
-            const error = new Error('El tipo seleccionado no existe.');
-            error.status = 400;
-            throw error;
-        }
-    }
-
-    const media = await Media.findByIdAndUpdate(id, { serial, titulo, sinopsis, url, imagenPortada, anoEstreno, genero, director, productora, tipo }, { new: true });
-    if (!media) {
-        const error = new Error('Media no encontrada');
-        error.status = 404;
-        throw error;
-    }
-    return media;
+/**
+ * updateMediaById
+ * Updates an existing media record by its ID.
+ */
+const updateMediaById = async (id, mediaData) => {
+  const media = await Media.findByIdAndUpdate(id, mediaData, { new: true });
+  if (!media) {
+    const error = new Error('Media record not found.');
+    error.status = 404;
+    throw error;
+  }
+  return media;
 };
 
-const deleteMediaService = async (id) => {
-    const media = await Media.findByIdAndDelete(id);
-    if (!media) {
-        const error = new Error('Media no encontrada');
-        error.status = 404;
-        throw error;
-    }
-    return media;
+/**
+ * deleteMediaById
+ * Deletes a media record by ID.
+ */
+const deleteMediaById = async (id) => {
+  const media = await Media.findByIdAndDelete(id);
+  if (!media) {
+    const error = new Error('Media record not found.');
+    error.status = 404;
+    throw error;
+  }
+  return media;
 };
 
 module.exports = {
-    getMediasService,
-    createMediaService,
-    updateMediaService,
-    deleteMediaService
+  findAllMedias,
+  createNewMedia,
+  updateMediaById,
+  deleteMediaById
 };
