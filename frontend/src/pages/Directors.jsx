@@ -80,7 +80,7 @@ export default function Directors() {
         </div>
         <button onClick={handleOpenAdd} className="btn btn-success d-flex align-items-center gap-2 px-4 shadow-sm">
           <span className="material-symbols-outlined">person_add</span>
-          Add Director
+          {t('add_director') || 'Add Director'}
         </button>
       </header>
 
@@ -116,7 +116,7 @@ export default function Directors() {
       <ModalBase 
         show={showModal} 
         onClose={() => setShowModal(false)} 
-        title={selectedEntity ? 'Edit Director' : 'Add New Director'}
+        title={selectedEntity ? t('edit_director') || 'Edit Director' : t('add_director') || 'Add New Director'}
       >
         <EntityForm initialData={selectedEntity} onSubmit={handleSubmit} loading={formLoading} />
       </ModalBase>

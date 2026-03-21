@@ -42,7 +42,7 @@ const MediaSchema = new mongoose.Schema({
   },
   genre: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Genero',
+    ref: 'Genre',
     required: [true, 'Genre is required']
   },
   director: {
@@ -52,12 +52,12 @@ const MediaSchema = new mongoose.Schema({
   },
   productionCompany: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Productora',
+    ref: 'Studio',
     required: [true, 'Production company is required']
   },
   type: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Tipo',
+    ref: 'MediaType',
     required: [true, 'Media type is required']
   },
   isActive: {
