@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
  * Tipo Schema
  * Defines the structure for media types (e.g., Movie, Series).
  */
-const TipoSchema = new mongoose.Schema({
+const MediaTypeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Type name is required'],
@@ -25,4 +25,4 @@ const TipoSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Tipo', TipoSchema);
+module.exports = mongoose.model('MediaType', MediaTypeSchema);

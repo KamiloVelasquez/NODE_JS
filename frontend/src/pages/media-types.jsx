@@ -36,7 +36,7 @@ export default function MediaTypes() {
       else await typesAPI.create(formData);
       setShowModal(false);
       fetchData();
-    } catch (err) { alert('Error saving media type'); }
+    } catch (err) { alert(err.response?.data?.msg || 'Error saving media type'); }
     finally { setFormLoading(false); }
   };
 
@@ -66,7 +66,7 @@ export default function MediaTypes() {
             <div key={item._id} className="col-12 col-md-6 col-lg-4">
               <div className="card bg-dark border-secondary border-opacity-10 custom-glass p-3 h-100">
                 <div className="d-flex justify-content-between align-items-center">
-                  <h5 className="text-light fw-bold mb-0">{item.name}</h5>
+                  <h5 className="text-light fw-bold mb-0">{item.name || item.nombre || 'Media Type'}</h5>
                   <div className="d-flex gap-2">
                     <button onClick={() => handleOpenEdit(item)} className="btn btn-sm btn-link text-secondary custom-hover p-1">
                       <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>edit</span>

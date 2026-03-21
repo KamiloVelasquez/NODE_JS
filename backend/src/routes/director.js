@@ -16,8 +16,8 @@ const createDirectorValidation = [
 // Routes for Director
 router.get('/', listDirectors);
 router.get('/:id', getDirector);
-router.post('/', auth, adminOnly, createDirectorValidation, createDirector);
-router.put('/:id', auth, adminOnly, updateDirector);
-router.delete('/:id', auth, adminOnly, deleteDirector);
+router.post('/', auth, createDirectorValidation, createDirector);
+router.put('/:id', auth, updateDirector);
+router.delete('/:id', auth, deleteDirector);
 
 module.exports = router;

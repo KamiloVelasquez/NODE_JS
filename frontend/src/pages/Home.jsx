@@ -54,7 +54,7 @@ export default function Home() {
           <div className="card bg-black border-secondary border-opacity-25 h-100 custom-glass overflow-hidden">
             <div className="card-header bg-transparent border-secondary border-opacity-25 py-3 px-4 d-flex justify-content-between align-items-center">
               <h5 className="mb-0 text-light fw-bold" style={{ fontSize: '0.9rem' }}>Recent System Events</h5>
-              <span className="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Live</span>
+              <span className="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 icon-pulse">Live</span>
             </div>
             <div className="card-body p-0">
               <ul className="list-group list-group-flush">

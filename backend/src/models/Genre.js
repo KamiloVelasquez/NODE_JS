@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
  * Genero Schema
  * Defines the structure for movie genres in MongoDB.
  */
-const GeneroSchema = new mongoose.Schema({
+const GenreSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Genre name is required'],
@@ -27,4 +27,4 @@ const GeneroSchema = new mongoose.Schema({
   timestamps: true // Automatically creates createdAt and updatedAt fields
 });
 
-module.exports = mongoose.model('Genero', GeneroSchema);
+module.exports = mongoose.model('Genre', GenreSchema);

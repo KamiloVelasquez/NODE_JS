@@ -60,7 +60,7 @@ export default function Media() {
       setShowModal(false);
       fetchMedias(); // Refresh list
     } catch (err) {
-      alert(err.response?.data?.msg || 'Error saving media');
+      alert(err.response?.data?.msg || err.response?.data?.errors?.[0]?.msg || 'Error saving media');
     } finally {
       setFormLoading(false);
     }
@@ -96,9 +96,9 @@ export default function Media() {
       </section>
 
       <section className="row row-cols-1 row-cols-md-3 g-4 mb-5">
-        {medias.slice(0, 3).map((media) => (
-          <article key={media._id} className="col">
-            <div className="card h-100 bg-black border-secondary border-opacity-25 overflow-hidden custom-glass">
+        {medias.slice(0, 3).map((media, idx) => (
+          <article key={media._id} className="col animate-fade-in-up" style={{ animationDelay: `${idx * 0.1}s` }}>
+            <div className="card h-100 bg-black border-secondary border-opacity-25 overflow-hidden custom-glass hover-lift">
               <div style={{ height: '200px', overflow: 'hidden' }}>
                 <img
                   src={media.posterImage || `https://via.placeholder.com/400x200?text=${encodeURIComponent(media.title)}`}

@@ -52,16 +52,22 @@ export const directorsAPI = {
 export const genresAPI = {
   getAll: () => api.get('/genres'),
   create: (data) => api.post('/genres', data),
+  update: (id, data) => api.put(`/genres/${id}`, data),
+  delete: (id) => api.delete(`/genres/${id}`),
 };
 
 export const studiosAPI = {
   getAll: () => api.get('/productions'),
   create: (data) => api.post('/productions', data),
+  update: (id, data) => api.put(`/productions/${id}`, data),
+  delete: (id) => api.delete(`/productions/${id}`),
 };
 
 export const typesAPI = {
   getAll: () => api.get('/types'),
   create: (data) => api.post('/types', data),
+  update: (id, data) => api.put(`/types/${id}`, data),
+  delete: (id) => api.delete(`/types/${id}`),
 };
 
 export const mediaAPI = {

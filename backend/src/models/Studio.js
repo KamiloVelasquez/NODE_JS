@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
  * Productora Schema
  * Defines the structure for production companies.
  */
-const ProductoraSchema = new mongoose.Schema({
+const StudioSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Production company name is required'],
@@ -30,4 +30,4 @@ const ProductoraSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Productora', ProductoraSchema);
+module.exports = mongoose.model('Studio', StudioSchema);

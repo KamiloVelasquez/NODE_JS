@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const { validationResult } = require('express-validator');
 const { 
   findAllDirectors, findDirectorById, createNewDirector, updateDirectorById, deleteDirectorById 
 } = require('../services/directorService');
@@ -40,6 +41,10 @@ const getDirector = async (req = request, res = response) => {
  */
 const createDirector = async (req = request, res = response) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const director = await createNewDirector(req.body);
     res.status(201).json(director);
   } catch (error) {
@@ -56,6 +61,10 @@ const createDirector = async (req = request, res = response) => {
  */
 const updateDirector = async (req = request, res = response) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { id } = req.params;
     const director = await updateDirectorById(id, req.body);
     res.status(200).json(director);

@@ -29,8 +29,8 @@ export default function MovieTable({ medias = [], onEdit, onDelete }) {
                 <td colSpan="7" className="text-center text-secondary py-4">No records found</td>
               </tr>
             ) : (
-              medias.map((media) => (
-                <tr key={media._id} className="custom-table-row">
+              medias.map((media, index) => (
+                <tr key={media._id} className="custom-table-row animate-fade-in-up" style={{ animationDelay: `${index * 0.05}s` }}>
                   <td className="px-4 py-4 font-monospace text-secondary border-secondary border-opacity-10" style={{ fontSize: '0.75rem' }}>{media.serialNumber}</td>
                   <td className="px-4 py-4 border-secondary border-opacity-10">
                     <div className="rounded overflow-hidden bg-dark shadow-sm position-relative custom-poster-container" style={{ width: '48px', height: '64px' }}>

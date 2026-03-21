@@ -35,10 +35,10 @@ const Login = () => {
         try {
             const response = await authAPI.login(formData);
             const data = response.data || response;
-            
+
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
-            
+
             navigate('/media');
         } catch (err) {
             setError(err.response?.data?.msg || t('login_error') || 'Error signing in');

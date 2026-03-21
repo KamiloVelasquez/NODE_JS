@@ -16,7 +16,7 @@ export default function EntityForm({ initialData = null, onSubmit, loading = fal
   useEffect(() => {
     if (initialData) {
       setFormData({
-        name: initialData.name || initialData.nombres || '', // Fallback for old data
+        name: initialData.name || initialData.nombre || '', // Fallback for old data
         isActive: initialData.isActive ?? true
       });
     }

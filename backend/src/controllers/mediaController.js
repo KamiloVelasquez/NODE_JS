@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const { validationResult } = require('express-validator');
 const { 
   findAllMedias, createNewMedia, updateMediaById, deleteMediaById 
 } = require('../services/mediaService');
@@ -23,6 +24,10 @@ const listMedias = async (req = request, res = response) => {
  */
 const createMedia = async (req = request, res = response) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const media = await createNewMedia(req.body);
     res.status(201).json(media);
   } catch (error) {
@@ -40,6 +45,10 @@ const createMedia = async (req = request, res = response) => {
  */
 const updateMedia = async (req = request, res = response) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { id } = req.params;
     const media = await updateMediaById(id, req.body);
     res.status(200).json(media);

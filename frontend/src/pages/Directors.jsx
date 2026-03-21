@@ -54,7 +54,7 @@ export default function Directors() {
       setShowModal(false);
       fetchData();
     } catch (err) {
-      alert('Error saving director');
+      alert(err.response?.data?.msg || err.response?.data?.errors?.[0]?.msg || 'Error saving director');
     } finally {
       setFormLoading(false);
     }
@@ -93,7 +93,7 @@ export default function Directors() {
               <div className="card bg-dark border-secondary border-opacity-10 custom-glass p-3 h-100">
                 <div className="d-flex justify-content-between align-items-start">
                   <div>
-                    <h5 className="text-light fw-bold mb-1">{dir.name}</h5>
+                    <h5 className="text-light fw-bold mb-1">{dir.name || dir.nombre || 'Director'}</h5>
                     <span className={`badge ${dir.isActive ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger'}`}>
                       {dir.isActive ? 'ACTIVE' : 'INACTIVE'}
                     </span>

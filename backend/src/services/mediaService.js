@@ -1,8 +1,8 @@
 const Media = require('../models/Media');
-const Genero = require('../models/Genero');
+const Genre = require('../models/Genre');
 const Director = require('../models/Director');
-const Productora = require('../models/Productora');
-const Tipo = require('../models/Tipo');
+const Studio = require('../models/Studio');
+const MediaType = require('../models/MediaType');
 
 /**
  * findAllMedias
@@ -42,7 +42,7 @@ const createNewMedia = async (mediaData) => {
   }
 
   // Validate references existence and activity
-  const genreDB = await Genero.findById(genre);
+  const genreDB = await Genre.findById(genre);
   if (!genreDB || !genreDB.isActive) {
     const error = new Error('Selected genre is invalid or inactive.');
     error.status = 400;
@@ -56,14 +56,14 @@ const createNewMedia = async (mediaData) => {
     throw error;
   }
 
-  const companyDB = await Productora.findById(productionCompany);
+  const companyDB = await Studio.findById(productionCompany);
   if (!companyDB || !companyDB.isActive) {
     const error = new Error('Selected production company is invalid or inactive.');
     error.status = 400;
     throw error;
   }
 
-  const typeDB = await Tipo.findById(type);
+  const typeDB = await MediaType.findById(type);
   if (!typeDB || !typeDB.isActive) {
     const error = new Error('Selected media type is invalid or inactive.');
     error.status = 400;

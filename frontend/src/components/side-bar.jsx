@@ -1,12 +1,18 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/language-context';
 
 export default function Sidebar() {
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
-  const getNavLinkClass = ({ isActive }) => 
-    `nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 ${isActive ? 'active bg-success bg-opacity-10 text-success border-start border-3 border-success fw-bold' : 'text-secondary custom-hover fw-medium'}`;
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
+  const getNavLinkClass = ({ isActive }) =>
+    `nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 hover-lift ${isActive ? 'active bg-success bg-opacity-10 text-success border-start border-3 border-success fw-bold ps-2' : 'text-secondary custom-hover fw-medium'}`;
 
   return (
     <aside className="d-flex flex-column flex-shrink-0 p-4 text-white custom-glass border-end border-secondary border-opacity-25" style={{ width: '280px', height: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 1040 }}>
@@ -61,7 +67,7 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <button className="btn btn-link nav-link text-secondary custom-hover-danger d-flex align-items-center gap-3 w-100 text-start shadow-none" style={{textDecoration: 'none'}}>
+            <button onClick={handleSignOut} className="btn btn-link nav-link text-secondary custom-hover-danger d-flex align-items-center gap-3 w-100 text-start shadow-none" style={{textDecoration: 'none'}}>
               <span className="material-symbols-outlined fs-5">logout</span>
               <span className="fw-medium" style={{ fontSize: '0.875rem' }}>{t('sign_out')}</span>
             </button>
