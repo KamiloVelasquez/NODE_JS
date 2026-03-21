@@ -14,7 +14,9 @@ export default function Media() {
     const fetchMedias = async () => {
       try {
         const response = await mediaAPI.getAll();
-        setMedias(response.data);
+        // En caso de trabajar con axios o fetch, normalizamos
+        const data = response?.data || response || [];
+        setMedias(Array.isArray(data) ? data : []);
       } catch (err) {
         setError('Error al cargar las medias');
         console.error(err);
@@ -41,6 +43,36 @@ export default function Media() {
           {t('add_title')}
         </button>
       </section>
+
+      <section className="row row-cols-1 row-cols-md-3 g-3 mb-4">
+        {medias.slice(0, 6).map((media) => {
+          const fallbackImage = `https://source.unsplash.com/featured/400x250/?${encodeURIComponent(media.titulo || 'movie')}`;
+          const posterUrl = media.imagenPortada?.trim() ? media.imagenPortada : fallbackImage;
+
+          return (
+            <article key={media._id} className="col">
+              <div className="card h-100 bg-black border-secondary border-opacity-25">
+                <img
+                  src={posterUrl}
+                  className="card-img-top"
+                  alt={media.titulo || 'Sin título'}
+                  style={{ objectFit: 'cover', height: '180px' }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title text-light mb-1">{media.titulo}</h5>
+                  <p className="card-text text-secondary mb-2" style={{ fontSize: '0.85rem' }}>
+                    {media.genero?.nombre || 'Género no definido'} • {media.anoEstreno || 'N/A'}
+                  </p>
+                  <p className="card-text text-white-50" style={{ fontSize: '0.75rem', height: '2.5rem', overflow: 'hidden' }}>
+                    {media.sinopsis}
+                  </p>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </section>
+
       <MovieTable medias={medias} />
       <Pagination />
     </>
