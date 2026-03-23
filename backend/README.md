@@ -173,4 +173,5 @@ Este proyecto está bajo la Licencia ISC.
 
 ## 👤 Autor
 
+**Monica Duque** - [GitHub](https://github.com/monicaduque-iudigital)
 **Kamilo Velásquez** - [GitHub](https://github.com/KamiloVelasquez)
