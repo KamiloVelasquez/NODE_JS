@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../contexts/language-context';
+import { useLanguage } from '../contexts/languageContext';
 
 export default function Pagination() {
   const { t } = useLanguage();

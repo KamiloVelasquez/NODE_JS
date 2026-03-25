@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ModalBase from '../components/modal-base';
 import EntityForm from '../components/entity-form';
-import { useLanguage } from '../contexts/language-context';
+import { useLanguage } from '../contexts/languageContext';
 import { genresAPI } from '../services/api';
 
 /**

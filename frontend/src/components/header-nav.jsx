@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/language-context';
+import { useLanguage } from '../contexts/languageContext';
 
 export default function Header() {
   const { t, toggleLanguage } = useLanguage();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/language-context';
+import { useLanguage } from '../contexts/languageContext';
 import { mediaAPI, genresAPI, directorsAPI, studiosAPI } from '../services/api';
 
 /**

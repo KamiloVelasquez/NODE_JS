@@ -3,7 +3,7 @@ import MovieTable from '../components/movie-table';
 import Pagination from '../components/pagination-control';
 import ModalBase from '../components/modal-base';
 import MediaForm from '../components/media-form';
-import { useLanguage } from '../contexts/language-context';
+import { useLanguage } from '../contexts/languageContext';
 import { mediaAPI } from '../services/api';
 
 /**

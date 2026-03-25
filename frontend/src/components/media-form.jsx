@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../contexts/language-context';
+import { useLanguage } from '../contexts/languageContext';
 import { genresAPI, directorsAPI, studiosAPI, typesAPI } from '../services/api';
 
 /**
