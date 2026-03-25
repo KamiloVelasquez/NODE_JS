@@ -3,15 +3,15 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/side-bar';
 import Header from './components/header-nav';
 import ProtectedRoute from './components/protected-route';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Genres from './pages/Genres';
-import Directors from './pages/Directors';
-import Studios from './pages/Studios';
+import Login from './pages/login';
+import Register from './pages/register';
+import Home from './pages/home';
+import Genres from './pages/genres';
+import Directors from './pages/directors';
+import Studios from './pages/studios';
 import Media from './pages/Media';
-import MediaTypes from './pages/Media-types';
-import Settings from './pages/Settings';
+import MediaTypes from './pages/media-types';
+import Settings from './pages/settings';
 
 export default function App() {
   const location = useLocation();
