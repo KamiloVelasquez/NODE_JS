@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Media Management - Obsidian Minimalist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#735c00",
+              "on-primary-fixed-variant": "#574500",
+              "on-primary-fixed": "#241a00",
+              "tertiary": "#bfcdff",
+              "on-error": "#690005",
+              "outline": "#99907c",
+              "primary-container": "#d4af37",
+              "surface-variant": "#353535",
+              "secondary-container": "#4a4949",
+              "on-secondary-fixed": "#1c1b1b",
+              "surface-container-lowest": "#0e0e0e",
+              "on-surface": "#e2e2e2",
+              "surface-dim": "#131313",
+              "surface-container": "#1f1f1f",
+              "on-primary-container": "#554300",
+              "on-error-container": "#ffdad6",
+              "surface-container-high": "#2a2a2a",
+              "secondary-fixed": "#e5e2e1",
+              "primary-fixed": "#ffe088",
+              "inverse-surface": "#e2e2e2",
+              "error-container": "#93000a",
+              "on-tertiary-container": "#254188",
+              "on-background": "#e2e2e2",
+              "primary-fixed-dim": "#e9c349",
+              "error": "#ffb4ab",
+              "on-primary": "#3c2f00",
+              "background": "#131313",
+              "on-secondary": "#313030",
+              "tertiary-fixed-dim": "#b4c5ff",
+              "inverse-on-surface": "#303030",
+              "on-secondary-fixed-variant": "#474646",
+              "on-tertiary-fixed-variant": "#27438a",
+              "tertiary-fixed": "#dbe1ff",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-container-low": "#1b1b1b",
+              "on-tertiary": "#082b72",
+              "surface-bright": "#393939",
+              "on-tertiary-fixed": "#00174b",
+              "surface-tint": "#e9c349",
+              "surface-container-highest": "#353535",
+              "tertiary-container": "#97b0ff",
+              "on-surface-variant": "#d0c5af",
+              "secondary": "#c8c6c5",
+              "primary": "#f2ca50",
+              "on-secondary-container": "#bab8b7",
+              "outline-variant": "#4d4635",
+              "surface": "#131313"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        body {
+            background-color: #131313;
+            color: #E2E2E2;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0E0E0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4D4635;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col py-8 bg-[#0E0E0E] dark:bg-[#0E0E0E] h-screen w-64 border-r border-[#4D4635]/20">
+<div class="px-8 mb-12">
+<h1 class="text-2xl font-black text-[#E2E2E2] tracking-tighter font-headline">CURATOR</h1>
+<p class="font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium text-[#99907C]">VINTAGE ARCHIVE</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 hover:bg-[#1B1B1B] transition-colors duration-300 text-[#99907C] pl-4 hover:text-[#E2E2E2] font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 hover:bg-[#1B1B1B] transition-colors duration-300 text-[#F2CA50] border-l-2 border-[#F2CA50] pl-4 transition-all font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="movie">movie</span>
+<span>Media</span>
+</a>
+<a class="flex items-center gap-4 py-3 hover:bg-[#1B1B1B] transition-colors duration-300 text-[#99907C] pl-4 hover:text-[#E2E2E2] font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Genres</span>
+</a>
+<a class="flex items-center gap-4 py-3 hover:bg-[#1B1B1B] transition-colors duration-300 text-[#99907C] pl-4 hover:text-[#E2E2E2] font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person_2">person_2</span>
+<span>Directors</span>
+</a>
+<a class="flex items-center gap-4 py-3 hover:bg-[#1B1B1B] transition-colors duration-300 text-[#99907C] pl-4 hover:text-[#E2E2E2] font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="business">business</span>
+<span>Studios</span>
+</a>
+<a class="flex items-center gap-4 py-3 hover:bg-[#1B1B1B] transition-colors duration-300 text-[#99907C] pl-4 hover:text-[#E2E2E2] font-['Noto_Serif'] tracking-[-0.02em] uppercase text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Types</span>
+</a>
+</nav>
+<div class="px-8 mt-auto pt-8 border-t border-[#4D4635]/10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional male portrait for admin avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ4KWiitkQTpXEs2NIUklTfHF9oEWuCDcM6qdQM5ewQxYECSFio3pQF1uqPCuNyVrpYpG0uU9xQeedxUcT0WvH007EasAYqOWNgu71L5DYuQh-DfoEVLqm_j72DzMjtLD_k9r9tBNENOojF2GdOcTpOdYqKuz0B3pkm7nAc0xU1dQEZhaMyx7uA7-tNFWPklLjnigBOWr6ytMgVRK8cRwKLXlPzATQJsfYxmNMrbh7H2O0Wa4D8EtUe7LHlzB6BMCSaJ_Dt-rc_OyR"/>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-label uppercase tracking-widest text-on-surface">Archivist</span>
+<span class="text-xs font-headline text-primary italic">Admin</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 z-50 flex justify-between items-center px-12 bg-[#131313]/80 backdrop-blur-xl h-20 border-b border-[#4D4635]/20">
+<div class="flex items-center gap-8">
+<span class="font-['Noto_Serif'] text-lg text-[#E2E2E2] italic">THE ARCHIVE</span>
+<div class="h-4 w-[1px] bg-outline-variant opacity-20"></div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-0 text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[10px] font-label uppercase tracking-[0.2rem] pl-8 w-64 placeholder:text-outline/40" placeholder="QUERY RECORDS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="font-['Manrope'] uppercase tracking-[0.1rem] text-[10px] text-[#F2CA50] font-bold" href="#">EN/ES</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hover:text-[#F2CA50] transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-[#F2CA50] transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 min-h-screen bg-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Header Section -->
+<section class="px-12 py-16 flex justify-between items-end">
+<div class="space-y-2">
+<span class="text-[10px] font-label uppercase tracking-[0.3rem] text-outline">Collection Overview</span>
+<h2 class="text-6xl font-headline font-black tracking-tighter text-on-surface">Media Management</h2>
+</div>
+<button class="bg-primary-container text-on-primary-container px-10 py-4 font-label text-[10px] uppercase tracking-[0.2rem] font-bold hover:bg-primary transition-all duration-300 active:scale-95 flex items-center gap-3 group">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform duration-500" data-icon="add">add</span>
+                Add New Title
+            </button>
+</section>
+<!-- Data Grid Section -->
+<section class="px-12 pb-32">
+<div class="w-full">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-4 pb-6 border-b border-outline-variant/20 mb-8 items-center">
+<div class="col-span-1 text-[10px] font-label uppercase tracking-widest text-outline">Serial</div>
+<div class="col-span-1 text-[10px] font-label uppercase tracking-widest text-outline">Poster</div>
+<div class="col-span-4 text-[10px] font-label uppercase tracking-widest text-outline">Title &amp; Synopsis</div>
+<div class="col-span-2 text-[10px] font-label uppercase tracking-widest text-outline">Genre</div>
+<div class="col-span-2 text-[10px] font-label uppercase tracking-widest text-outline">Director</div>
+<div class="col-span-2 text-[10px] font-label uppercase tracking-widest text-outline">Status</div>
+</div>
+<!-- Table Rows -->
+<div class="space-y-0">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-start group hover:bg-surface-container-low transition-colors duration-500 px-4 -mx-4">
+<div class="col-span-1 font-headline italic text-primary text-lg">001</div>
+<div class="col-span-1">
+<div class="w-16 h-24 bg-surface-container-high overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Abstract cinematic movie poster dark tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgSqP5zeMQ7k1H2Q1-w7Xuh_Es-i3vnqbq8iInSFgbxvKTttSBu4veg9-WcDYnIwmG3IuJ-haeGf9d2RMxZzkhhm_lskkJO0dSRa5Cvc88BOQn-SyKNl3fQegA00pRUGA1MNu8Z0n-VWq85cB3u_KJKlO2ktM08uqD1CiwdlBS7a9oTEeVLsmstahUMpRpJDzRSXXcUAkUbLEJEtPQkBTSfBsVWQquRgRyOoMnmq_awleQ49lHCX45CBoR-mTxcRsxzaQYhfpzrhLC"/>
+</div>
+</div>
+<div class="col-span-4 pr-12">
+<h3 class="font-headline text-xl text-on-surface mb-2 tracking-tight">The Obsidian Watch</h3>
+<p class="text-xs text-outline leading-relaxed font-light line-clamp-2">A neo-noir journey through a city that never breathes, where light is a luxury and shadows are currency.</p>
+</div>
+<div class="col-span-2 flex flex-wrap gap-2">
+<span class="text-[9px] font-label uppercase tracking-widest border border-outline-variant/20 px-2 py-1">Drama</span>
+<span class="text-[9px] font-label uppercase tracking-widest border border-outline-variant/20 px-2 py-1">Noir</span>
+</div>
+<div class="col-span-2 text-xs font-headline italic text-on-surface-variant">Elias Thorne</div>
+<div class="col-span-2 flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="text-[10px] font-label uppercase tracking-widest text-primary">Archived</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-start group hover:bg-surface-container-low transition-colors duration-500 px-4 -mx-4">
+<div class="col-span-1 font-headline italic text-primary text-lg">002</div>
+<div class="col-span-1">
+<div class="w-16 h-24 bg-surface-container-high overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Atmospheric landscape movie poster mist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZR_A9N_FrJQKD4-iljm-aPrVCcKRTBloo0mKzFgEKi30OV6VWZNgGrMSXlvjOMZzW8SnIallRnoR0J9W1h52Fqjjao1NXICMTfdtSXBtJOwV8mh7q1nJpzp1fVn2ILyB-BauwQLMdFV9wkAKBohs0JZrn7G43Z1kop9NCh8asubYDKI_ctB4J8m3xIvgMuz_wGXlUC_PmHeySR-8f0v3K3S_gCpCIz6fm6U3pbqns0gPJmdDZ8-KphOwad2qM87fQGsbPlGO2jC3n"/>
+</div>
+</div>
+<div class="col-span-4 pr-12">
+<h3 class="font-headline text-xl text-on-surface mb-2 tracking-tight">Silent Echoes</h3>
+<p class="text-xs text-outline leading-relaxed font-light line-clamp-2">Following the disappearance of an entire village, one archivist must reconstruct the past from fragments of sound.</p>
+</div>
+<div class="col-span-2 flex flex-wrap gap-2">
+<span class="text-[9px] font-label uppercase tracking-widest border border-outline-variant/20 px-2 py-1">Mystery</span>
+</div>
+<div class="col-span-2 text-xs font-headline italic text-on-surface-variant">S. Marceau</div>
+<div class="col-span-2 flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-outline"></div>
+<span class="text-[10px] font-label uppercase tracking-widest text-outline">Processing</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-start group hover:bg-surface-container-low transition-colors duration-500 px-4 -mx-4">
+<div class="col-span-1 font-headline italic text-primary text-lg">003</div>
+<div class="col-span-1">
+<div class="w-16 h-24 bg-surface-container-high overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Minimalist architectural movie poster gold" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE1OstA_ksKwUyVGHROF6HuYCJENKYD97sF9DxOQBEhdXYkj6G4I5xIUl1sSfu3qH2hPwGpYrwCeIDf8spv_Ckq3Xyj9hDLbL6fSVj2_12NGMBmZuu2x9SM7jMkDvx3SU08OUwpRcVb_sHe6cGLLPTbQr5OsQgOflaEMuX8SAWKsaOuzANYj7oo87-J8ONsy1B_wFAYCbM-3jc-xtPbiUCH8xiYJW8fjBDL8sRWnVD4ppzqa9wlepc7nwICC9_ll22qYpzFZRR_lTb"/>
+</div>
+</div>
+<div class="col-span-4 pr-12">
+<h3 class="font-headline text-xl text-on-surface mb-2 tracking-tight">Monolith IV</h3>
+<p class="text-xs text-outline leading-relaxed font-light line-clamp-2">A visual symphony exploring the relationship between brutalist architecture and human fragility.</p>
+</div>
+<div class="col-span-2 flex flex-wrap gap-2">
+<span class="text-[9px] font-label uppercase tracking-widest border border-outline-variant/20 px-2 py-1">Art</span>
+<span class="text-[9px] font-label uppercase tracking-widest border border-outline-variant/20 px-2 py-1">Short</span>
+</div>
+<div class="col-span-2 text-xs font-headline italic text-on-surface-variant">K. Aris</div>
+<div class="col-span-2 flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="text-[10px] font-label uppercase tracking-widest text-primary">Archived</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 gap-4 py-8 items-start group hover:bg-surface-container-low transition-colors duration-500 px-4 -mx-4">
+<div class="col-span-1 font-headline italic text-primary text-lg">004</div>
+<div class="col-span-1">
+<div class="w-16 h-24 bg-surface-container-high overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Black and white experimental film poster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSkd4QL97tTi3P58l3mR4f9YVC27ghrTJNrpY5cYnprDhes-a8GfIk-CPPcZDYKjBsYwypgfTYx-_m7yVbrG5QMbitvgVodqIpVKEipfUyBePtdFd3-0dRZAKwKC4YafIJk3V2wKH4Wd36gTw3bM1BlqmF-9rDcj0TpsHPAs3VtcTxRZtnaAXHcBBNqdgN9lN6ewTvQmk1dxveqX5TqcxXwSA6SaKLa7PJ5NQng1bXVdnYMjKQCuFdcqEmF2gUROSA0QLe5mkcADaE"/>
+</div>
+</div>
+<div class="col-span-4 pr-12">
+<h3 class="font-headline text-xl text-on-surface mb-2 tracking-tight">Velvet Void</h3>
+<p class="text-xs text-outline leading-relaxed font-light line-clamp-2">The final entry in the Obsidian Trilogy. An exploration of silence in the age of eternal data.</p>
+</div>
+<div class="col-span-2 flex flex-wrap gap-2">
+<span class="text-[9px] font-label uppercase tracking-widest border border-outline-variant/20 px-2 py-1">Sci-Fi</span>
+</div>
+<div class="col-span-2 text-xs font-headline italic text-on-surface-variant">L. Van Eyck</div>
+<div class="col-span-2 flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-error"></div>
+<span class="text-[10px] font-label uppercase tracking-widest text-error">Restricted</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Summary Footer -->
+<footer class="fixed bottom-0 right-0 left-64 h-16 bg-[#0E0E0E] flex items-center justify-between px-12 border-t border-[#4D4635]/10 z-30">
+<div class="flex items-center gap-6">
+<span class="text-[10px] font-label uppercase tracking-[0.2rem] text-outline">Displaying 10 of 142 records</span>
+<div class="h-3 w-[1px] bg-outline-variant opacity-20"></div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<span class="text-[10px] font-label tracking-widest text-primary font-bold">PAGE 01 / 15</span>
+<button class="text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<button class="text-[9px] font-label uppercase tracking-[0.15rem] text-outline hover:text-on-surface transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined !text-[14px]" data-icon="download">download</span>
+                    Export Archive
+                </button>
+<button class="text-[9px] font-label uppercase tracking-[0.15rem] text-outline hover:text-on-surface transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined !text-[14px]" data-icon="filter_list">filter_list</span>
+                    Advanced Filter
+                </button>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Hidden as per rule: Suppressed on Details/Management Screens) -->
+</body></html>
