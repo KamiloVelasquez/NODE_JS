@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import Genres from './pages/Genres';
 import Directors from './pages/Directors';
 import Studios from './pages/Studios';
-import Media from './pages/media';
+import Media from './pages/Media';
 import MediaTypes from './pages/Media-types';
 import Settings from './pages/Settings';
 
